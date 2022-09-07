@@ -1,6 +1,6 @@
 # Generating After Visit Summaries
 
-This is the repo for the COLING 2022 paper [Generation of Patient After-Visit Summaries to Support Physicians](Link will be available soon)
+This is the repo for the COLING 2022 paper [Generation of Patient After-Visit Summaries to Support Physicians](https://coling2022.org/) (Link will be available soon)
 
 ### Datasets
 
