@@ -22,8 +22,8 @@ CUDA_VISIBLE_DEVICES=0 python run_summarization.py \
     --do_train \
     --do_eval \
     --do_predict \
-    --train_file ../avs/data/json/src-tgt_1.0/train.json \
-    --validation_file ../avs/data/json/src-tgt_1.0/val.json \
+    --train_file ../avs/data/json/src-tgt_1.0/val.json \
+    --validation_file ../avs/data/json/src-tgt_1.0/test.json \
     --test_file ../avs/data/json/src-tgt_1.0/test.json \
     --output_dir ../AVS_gen_/dump/mimic-led \
     --overwrite_output_dir \
