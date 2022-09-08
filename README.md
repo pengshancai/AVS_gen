@@ -1,8 +1,6 @@
 # Generating After Visit Summaries
 
-This is the repo for the COLING 2022 paper [Generation of Patient After-Visit Summaries to Support Physicians](https://coling2022.org/) (Link will be available soon)
-
-### Datasets
+This is the repo for the COLING 2022 paper [Generation of Patient After-Visit Summaries to Support Physicians](https://coling2022.org/) (Paper link will be available soon)
 
 The model & results reported in this paper were obtained based on patient data from University of Massachusetts, Chan Medical School. Due to privacy issue, we could not open source our datasets. 
 
@@ -10,13 +8,17 @@ The good news is, we have recently found the [MIMIC-III](https://physionet.org/c
 
 While MIMIC-III is a de-identified and publicly available dataset, you still need to apply to access the dataset on the [website](https://physionet.org/content/mimiciii/1.4/).
 
-### Data Preprocess
+### Available Resources
+
+We will publish our pre-trained models on MIMIC-III datasets soon. To obtain the datasets, please refer to the following instructions.
+
+### Datasets
 
 #### Download & Preprocess MIMIC-III
 
-Once you have been granted access to MIMIC-III, download [this file](https://physionet.org/content/mimiciii/1.4/NOTEEVENTS.csv.gz), which contains a large number of physician notes.
+Once you have been granted access to MIMIC-III, download [this file](https://physionet.org/content/mimiciii/1.4/NOTEEVENTS.csv.gz), which contains a table of de-identified physician notes.
 
-We will update the code for extracting discharge summary - AVS pairs from the downloaded file. 
+Use the following command to extracting discharge summary - AVS pairs from the downloaded file. 
 
 
 

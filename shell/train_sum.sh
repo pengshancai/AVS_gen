@@ -1,0 +1,18 @@
+CUDA_VISIBLE_DEVICES=4,5 python run_summarization.py \
+    --model_name_or_path allenai/led-base-16384 \
+    --do_train \
+    --do_eval \
+    --do_predict \
+    --train_file ../AVS_gen_/data/sum/train.jsonl \
+    --validation_file ../AVS_gen_/data/sum/valid.jsonl \
+    --test_file ../AVS_gen_/data/sum/test.jsonl \
+    --output_dir ../AVS_gen_/dump/mimic-led \
+    --overwrite_output_dir \
+    --per_device_train_batch_size=4 \
+    --per_device_eval_batch_size=4 \
+    --predict_with_generate \
+    --num_train_epochs 6 \
+    --save_steps 3000 \
+    --save_total_limit 3 \
+    --max_source_length 1024 \
+    --max_target_length 256 \
