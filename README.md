@@ -18,7 +18,7 @@ Our after-visit summary generation models pre-trained on MIMIC-III datasets is a
 
 Once you have been granted access to MIMIC-III, download [NOTEEVENTS.csv](https://physionet.org/content/mimiciii/1.4/NOTEEVENTS.csv.gz), which contains a table of de-identified physician notes.
 
-Use the following command to 
+Run the following command:
 
 ```
 python scripts/data_process/extract_mimic3.py \
