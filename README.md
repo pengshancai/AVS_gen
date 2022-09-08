@@ -8,7 +8,7 @@ The good news is, we have recently found the [MIMIC-III](https://physionet.org/c
 
 While MIMIC-III is a de-identified and publicly available dataset, you still need to apply to access the dataset on the [website](https://physionet.org/content/mimiciii/1.4/).
 
-### Available Resources
+### Available Pre-trained Model
 
 Our after-visit summary generation models pre-trained on MIMIC-III datasets is available [HERE](https://drive.google.com/file/d/1OvFUw0sqBJT-qOnokNkRwNr7LaN7YOHS/view?usp=sharing). To obtain the train/validation/test datasets, please refer to the instructions below.
 
