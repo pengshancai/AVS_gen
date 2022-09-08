@@ -1,6 +1,6 @@
 # Generating After Visit Summaries
 
-This is the repo for the COLING 2022 paper [Generation of Patient After-Visit Summaries to Support Physicians](https://coling2022.org/) (Paper link will be available soon)
+This is the repo for the COLING 2022 paper [Generation of Patient After-Visit Summaries to Support Physicians](https://coling2022.org/) (Paper link will be available upon publication)
 
 The model & results reported in this paper were obtained based on patient data from University of Massachusetts, Chan Medical School. Due to privacy issue, we could not open source our datasets. 
 
@@ -10,19 +10,26 @@ While MIMIC-III is a de-identified and publicly available dataset, you still nee
 
 ### Available Resources
 
-We will publish our pre-trained models on MIMIC-III datasets soon. To obtain the datasets, please refer to the following instructions.
+Our after-visit summary generation models pre-trained on MIMIC-III datasets is available [HERE](https://drive.google.com/file/d/1OvFUw0sqBJT-qOnokNkRwNr7LaN7YOHS/view?usp=sharing). To obtain the train/validation/test datasets, please refer to the instructions below.
 
 ### Datasets
 
 #### Download & Preprocess MIMIC-III
 
-Once you have been granted access to MIMIC-III, download [this file](https://physionet.org/content/mimiciii/1.4/NOTEEVENTS.csv.gz), which contains a table of de-identified physician notes.
+Once you have been granted access to MIMIC-III, download [NOTEEVENTS.csv](https://physionet.org/content/mimiciii/1.4/NOTEEVENTS.csv.gz), which contains a table of de-identified physician notes.
 
-Use the following command to extracting discharge summary - AVS pairs from the downloaded file. 
+Use the following command to 
+
+```
+python scripts/data_process/extract_mimic3.py \
+    --input_file path/to/NOTEEVENTS.csv \
+    --output_dir path/to/output/data/directory
+```
+
+This command will extract discharge summary - AVS pairs from the downloaded  file ```NOTEEVENTS.csv```, and randomly split them into train/validation/test datasets in the ```output_dir```
 
 
-
-### Training & Evaluating 
+### Training & Evaluating the Summarization Model
 
 To train / evaluate the summarization model, run the following commnand:
 
@@ -44,7 +51,7 @@ python run_summarization.py \
     --save_steps 3000 \
     --save_total_limit 3 \
     --max_source_length 1024 \
-    --max_target_length 256 \
+    --max_target_length 512 \
 ```
 
 To train / evaluate the hallucination detection model, run the following commnand:
