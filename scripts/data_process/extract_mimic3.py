@@ -102,5 +102,3 @@ if __name__ == "__main__":
     print('File processing finished, now randomly spliting into train/validation/test sets')
     split_datasets(args.output_dir)
 
-
-
