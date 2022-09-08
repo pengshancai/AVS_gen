@@ -256,7 +256,7 @@ def main():
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     import pickle
-    with open('./za/args/args_sum.pkl', 'wb') as f:
+    with open('../AVS_gen_/za/args/args_sum.pkl', 'wb') as f:
         args = {
             'model_args': model_args,
             'data_args': data_args,

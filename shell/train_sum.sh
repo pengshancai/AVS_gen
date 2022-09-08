@@ -3,9 +3,9 @@ CUDA_VISIBLE_DEVICES=4,5 python run_summarization.py \
     --do_train \
     --do_eval \
     --do_predict \
-    --train_file ../AVS_gen_/data/sum/train.jsonl \
-    --validation_file ../AVS_gen_/data/sum/valid.jsonl \
-    --test_file ../AVS_gen_/data/sum/test.jsonl \
+    --train_file ../AVS_gen_/data/sum/train.json \
+    --validation_file ../AVS_gen_/data/sum/valid.json \
+    --test_file ../AVS_gen_/data/sum/test.json \
     --output_dir ../AVS_gen_/dump/mimic-led \
     --overwrite_output_dir \
     --per_device_train_batch_size=4 \
@@ -15,4 +15,4 @@ CUDA_VISIBLE_DEVICES=4,5 python run_summarization.py \
     --save_steps 3000 \
     --save_total_limit 3 \
     --max_source_length 1024 \
-    --max_target_length 256 \
+    --max_target_length 256
