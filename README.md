@@ -106,7 +106,7 @@ python ./run_err_det.py \
 
 #### Key Event Identification for Missing Content Detection
 
-1. To prepare the data for key event identification model, run the following command:
+1. To prepare the data for key event identification model, run the following command: (Require your implementation of accessing to your own UMLS database)
 ```
 python ./scripts/data_preprocess/miss_det-build_dataset.py \
     --input_src_txt_dir path/to/train_src_txt/ \
@@ -114,7 +114,8 @@ python ./scripts/data_preprocess/miss_det-build_dataset.py \
     --input_tgt_json_dir path/to/train_tgt_ent/ \
     --output_dir path/to/your_ke_idt_data_dir
 ```
-2. To train the key event identification model, run the following commnand:
+
+2. To train the key event identification model, run the following commnand: 
 ```
 python ./run_err_det.py \
   --model_name_or_path google/bigbird-roberta-base \
