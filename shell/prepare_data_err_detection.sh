@@ -2,8 +2,8 @@
 # For each fold, the script make a language modeling dataset by adding some noise
 # Please revise the value of the following hyper-parameters: input_txt_dir, input_json_dir, output_dir
 sh scripts/data_process/err_det-masked_events.py \
-    --input_txt_dir path/to/tgt_txt/ \
-    --input_json_dir path/to/tgt_ent/ \
+    --input_txt_dir path/to/train_tgt_txt/ \
+    --input_json_dir path/to/train_tgt_ent/ \
     --output_dir path/to/your_ml_data_dir \
     --num_folds 5
 
@@ -34,9 +34,9 @@ done
 
 # The following command will use the language model you have just trained to generate the train/valid set for error detection model
 sh scripts/data_process/err_det-build_datasets.py \
-    --input_src_txt_dir path/to/src_txt/
-    --input_tgt_txt_dir path/to/tgt_txt/ \
-    --input_tgt_json_dir path/to/tgt_ent/ \
+    --input_src_txt_dir path/to/train_src_txt/
+    --input_tgt_txt_dir path/to/train_tgt_txt/ \
+    --input_tgt_json_dir path/to/train_tgt_ent/ \
     --output_dir path/to/your_err_det_data_dir \
     --model_dump_dir path/to/your_ml_model_dump_dir
 

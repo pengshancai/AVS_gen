@@ -8,7 +8,7 @@ import jsonlines
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Finetune a transformers model on a summarization task")
+    parser = argparse.ArgumentParser()
     parser.add_argument(
         "--input_txt_dir",
         type=str,

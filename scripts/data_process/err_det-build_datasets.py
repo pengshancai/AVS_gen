@@ -13,7 +13,7 @@ from tqdm import tqdm
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Finetune a transformers model on a summarization task")
+    parser = argparse.ArgumentParser()
     parser.add_argument(
         "--num_error_sents",
         type=int,

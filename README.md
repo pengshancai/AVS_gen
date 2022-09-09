@@ -8,7 +8,7 @@ The good news is, we have recently found the [MIMIC-III](https://physionet.org/c
 
 While MIMIC-III is a de-identified and publicly available dataset, you still need to apply to access the dataset on the [website](https://physionet.org/content/mimiciii/1.4/).
 
-### Available Pre-trained Model
+### Available Pre-trained Models
 
 Our after-visit summary generation models pre-trained on MIMIC-III datasets is available [HERE](https://drive.google.com/file/d/1OvFUw0sqBJT-qOnokNkRwNr7LaN7YOHS/view?usp=sharing). To obtain the train/validation/test datasets, please refer to the instructions below.
 
@@ -60,12 +60,12 @@ To train& apply our error detection model requires using [MetaMap](https://lhncb
 
 Please install and set up MetaMap as [instructed](https://lhncbc.nlm.nih.gov/ii/tools/MetaMap/documentation/Installation.html), and then prepare the following folders:
 
-- ```src_txt/``` contains hospital course notes, each hospital course note should be stored in a single txt file, e.g. ```src_txt_0.txt```;
-- ```src_ent/``` contains UMLS concepts extracted by MetaMap from hospital course notes, the concepts extracted from a hospital course note txt file should be stored in a json file starting with the name of the txt file, e.g. ```src_txt_0.txt.json```;
-- ```tgt_txt/``` contains AVS notes, similarly, each AVS note should be stored in a single txt file, e.g. ```tgt_txt_0.txt```;
-- ```tgt_ent/``` contains UMLS concepts extracted by MetaMap from AVS notes, the naming criterion is similar to above , e.g. ```tgt_txt_0.txt.json```;
+- ```train_src_txt/``` contains hospital course notes, each hospital course note should be stored in a single txt file, e.g. ```src_txt_0.txt```;
+- ```train_src_ent/``` contains UMLS concepts extracted by MetaMap from hospital course notes, the concepts extracted from a hospital course note txt file should be stored in a json file starting with the name of the txt file, e.g. ```src_txt_0.txt.json```;
+- ```train_tgt_txt/``` contains AVS notes, similarly, each AVS note should be stored in a single txt file, e.g. ```tgt_txt_0.txt```;
+- ```train_tgt_ent/``` contains UMLS concepts extracted by MetaMap from AVS notes, the naming criterion is similar to above , e.g. ```tgt_txt_0.txt.json```;
 
-Specifically, the json file in ```src_ent/``` and ```tgt_ent/``` should adopt the following format:
+Specifically, the json file in ```train_src_ent/``` and ```train_tgt_ent/``` should adopt the following format:
 
 ```
 [
@@ -75,6 +75,10 @@ Specifically, the json file in ```src_ent/``` and ```tgt_ent/``` should adopt th
 ]
 ```
 where *begin* and *end* refers to the position where the UMLS concept begins and ends in the text, *CUI* is the unique concept identifier in the UMLS, *orgi_term* and *pref_term* are the original and preferred term of the concept, *sem_type* is the semantic type. All this information could be provided by MetaMap. 
+
+Following the same manner, build the following folders: ```valid_src_txt/```, ```valid_src_ent/```, ```valid_tgt_txt/```, ```valid_tgt_ent/```, ```test_src_txt/```, ```test_src_ent/```, ```test_tgt_txt/```, ```test_tgt_ent/```.
+
+#### Hallucination Detection
 
 To train / evaluate the hallucination detection model, you need to prepare the data through the following two steps:
 
@@ -94,8 +98,37 @@ python ./run_err_det.py \
   --do_train \
   --do_eval \
   --do_predict \
-  --per_device_train_batch_size 2 \
-  --per_device_eval_batch_size 2 \
+  --per_device_train_batch_size 8 \
+  --per_device_eval_batch_size 8 \
   --num_train_epochs 3 \
   --hallucination_weight 3.0 
 ```
+
+#### Key Event Identification for Missing Content Detection
+
+1. To prepare the data for key event identification model, run the following command:
+```
+python ./scripts/data_preprocess/miss_det-build_dataset.py \
+    --input_src_txt_dir path/to/train_src_txt/ \
+    --input_src_json_dir path/to/train_src_ent/ \
+    --input_tgt_json_dir path/to/train_tgt_ent/ \
+    --output_dir path/to/your_ke_idt_data_dir
+```
+2. To train the key event identification model, run the following commnand:
+```
+python ./run_err_det.py \
+  --model_name_or_path google/bigbird-roberta-base \
+  --train_file path/to/your_ke_idt_data_dir/train.json \
+  --validation_file path/to/your_ke_idt_data_dir/val.json \
+  --output_dir path/to/your_ke_idt_model_dump_dir \
+  --save_steps 3000 \
+  --do_train \
+  --do_eval \
+  --do_predict \
+  --per_device_train_batch_size 8 \
+  --per_device_eval_batch_size 8 \
+  --num_train_epochs 3 
+```
+
+
+
