@@ -26,6 +26,23 @@ python scripts/data_process/extract_mimic3.py \
 
 This command will extract hospital course - AVS pairs from the downloaded  file ```NOTEEVENTS.csv```, and randomly split them into train/validation/test datasets in the ```output_dir``` as you specified.
 
+### Training & Evaluating Data Format for the Summarization Model
+
+Specifically, the ```train.json```, ```validation.json``` and ```test.json``` should be dictionaries conforming to the following format:
+
+```
+{
+    {
+        "text": "Hospital Course Content 1"
+        "summary": "After-Visit Summary Content 1"
+    },
+    {
+        "text": "Hospital Course Content 2"
+        "summary": "After-Visit Summary Content 2"
+    },
+    ...
+}
+```
 
 ### Training & Evaluating the Summarization Model
 
@@ -43,6 +60,24 @@ python run_summarization.py \
     --output_dir path/to/output_dir \
     --overwrite_output_dir \
     --per_device_train_batch_size=8 \
+    --per_device_eval_batch_size=8 \
+    --predict_with_generate \
+    --num_train_epochs 6 \
+    --save_steps 3000 \
+    --save_total_limit 3 \
+    --max_source_length 1024 \
+    --max_target_length 512 \
+```
+
+If you just wish to generate results using a pre-trained model, run the following command:
+
+```
+python run_summarization.py \
+    --model_name_or_path path/to/pretrained/model \
+    --do_predict \
+    --test_file path/to/test.json \
+    --output_dir path/to/output_dir \
+    --overwrite_output_dir \
     --per_device_eval_batch_size=8 \
     --predict_with_generate \
     --num_train_epochs 6 \
