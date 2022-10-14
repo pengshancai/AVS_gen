@@ -87,6 +87,8 @@ python run_summarization.py \
     --max_target_length 512 \
 ```
 
+The results will be generated in the ```output_dir```
+
 ### Training & Evaluating the Error Detection Model
 
 To train& apply our error detection model requires using [MetaMap](https://lhncbc.nlm.nih.gov/ii/tools/MetaMap.html) to extract UMLS concepts from hospital course notes and AVS notes. 
