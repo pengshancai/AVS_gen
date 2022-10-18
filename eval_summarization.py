@@ -5,6 +5,7 @@ import rouge_score
 from bert_score import score as bert_scorer
 from tqdm import tqdm
 import numpy as np
+import jsonlines, json
 
 
 rouge_scorer = rouge_score.rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rouge3', 'rouge4', 'rougeL'], use_stemmer=True)
@@ -60,9 +61,11 @@ def main():
     Step 0: Preparation
     """
     args = parse_args()
-    with open(args.src_avs_path) as f:
-        golds = [rec['summmary'] for rec in con]
-        srcs = [rec['text'] for rec in con]
+    with jsonlines.open(args.src_avs_path) as f:
+        golds, srcs = [], []
+        for line in f:
+            golds.append(line['summary'])
+            srcs.append(line['text'])
     with open(args.gen_avs_path) as f:]
         preds = f.readlines()
     assert len(srcs) == len(golds) == len(preds)
@@ -71,14 +74,16 @@ def main():
     for src, gold, pred in zip(srcs, golds, preds):
         _ = progress.update(1)
         if args.target == 'pred':
-            # Coverage
+            # Coverage (Rouge score)
             rouge1, rouge2, rouge3, rouge4, rougeL = get_rouge_score(gold, pred)
+            # Coverage (BERTscore)
             _, _, bf_f1 = get_bert_score(gold, pred)
-            # Readability
+            # Readability (SARI and Dale Chall score)
             sari = get_sari(src, gold, pred)
             dale_chall = get_dale_chall(pred)
             # Other characteristics
             length = len(pred.split(' '))
+            # Store results
             scores['rouge1'].append(rouge1)
             scores['rouge2'].append(rouge2)
             scores['rouge3'].append(rouge3)
@@ -107,3 +112,4 @@ def main():
 
 
 
+path = '../AVS_gen_/data/sum/test.json'
